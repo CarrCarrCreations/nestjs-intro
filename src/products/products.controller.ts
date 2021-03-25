@@ -7,7 +7,6 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { Product } from './product.model';
 import { ProductsService } from './products.service';
 
 @Controller('products')

@@ -1,5 +1,5 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
-import { Document, FilterQuery, Model } from 'mongoose';
+import { Document, Model } from 'mongoose';
 
 /**
  * Abstract base service that other services can extend to provide base CRUD
@@ -31,7 +31,6 @@ export abstract class MongoDbService<T extends Document> {
    */
   async insertOne(newEntry: object) {
     try {
-      console.log(this.modelName);
       return await this.model.create(newEntry);
     } catch (err) {
       throw new InternalServerErrorException(
