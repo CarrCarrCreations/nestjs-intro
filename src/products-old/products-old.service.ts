@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
 import { MongoDbService } from 'src/mongo-db/mongo-db.service';
-import { Product } from './product.model';
+import { Product } from './product-old.model';
 
 @Injectable()
 export class ProductsService extends MongoDbService<Product> {

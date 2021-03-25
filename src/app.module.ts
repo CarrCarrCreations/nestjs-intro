@@ -5,13 +5,13 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
-import { ProductsModule } from './products/products.module';
+import { ProductsOldModule } from './products-old/products-old.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     MongooseModule.forRoot(process.env.MONGO_URI),
-    ProductsModule,
+    ProductsOldModule,
   ],
   controllers: [AppController],
   providers: [AppService],
