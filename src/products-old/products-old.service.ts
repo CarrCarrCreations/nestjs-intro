@@ -3,12 +3,12 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
 import { MongoDbService } from 'src/mongo-db/mongo-db.service';
-import { Product } from './product-old.model';
+import { Product, ModelName } from './product-old.model';
 
 @Injectable()
 export class ProductsService extends MongoDbService<Product> {
   constructor(
-    @InjectModel('Product') private readonly productModel: Model<Product>,
+    @InjectModel(ModelName) private readonly productModel: Model<Product>,
   ) {
     super(productModel);
   }
