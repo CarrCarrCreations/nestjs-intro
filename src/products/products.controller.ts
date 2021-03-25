@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
+import { Product } from './product.model';
 import { ProductsService } from './products.service';
 
 @Controller('products')
@@ -16,46 +17,46 @@ export class ProductsController {
   @Post()
   async addProduct(
     @Body('title') title: string,
-    @Body('desc') desc: string,
+    @Body('description') description: string,
     @Body('price') price: number,
   ) {
-    const generatedId = await this.productsService.insertProduct(
-      title,
-      desc,
-      price,
-    );
-    return { id: generatedId };
+    const user = await this.productsService.insertOne({
+      title: title,
+      description: description,
+      price: price,
+    });
+    return { user };
   }
 
-  @Get()
-  async getAllProducts() {
-    return await this.productsService.getProducts();
-  }
+  // @Get()
+  // async getAllProducts() {
+  //   return await this.productsService.getProducts();
+  // }
 
-  @Get(':id')
-  getProduct(
-    @Param('id') id: string,
-    @Body('title') title: string,
-    @Body('desc') desc: string,
-    @Body('price') price: number,
-  ) {
-    return this.productsService.getProduct(id);
-  }
+  // @Get(':id')
+  // getProduct(
+  //   @Param('id') id: string,
+  //   @Body('title') title: string,
+  //   @Body('desc') desc: string,
+  //   @Body('price') price: number,
+  // ) {
+  //   return this.productsService.getProduct(id);
+  // }
 
-  @Patch(':id')
-  async updateProduct(
-    @Param('id') id: string,
-    @Body('title') title: string,
-    @Body('desc') desc: string,
-    @Body('price') price: number,
-  ): Promise<void> {
-    await this.productsService.updateProduct(id, title, desc, price);
-    return null;
-  }
+  // @Patch(':id')
+  // async updateProduct(
+  //   @Param('id') id: string,
+  //   @Body('title') title: string,
+  //   @Body('desc') desc: string,
+  //   @Body('price') price: number,
+  // ): Promise<void> {
+  //   await this.productsService.updateProduct(id, title, desc, price);
+  //   return null;
+  // }
 
-  @Delete(':id')
-  async removeProduct(@Param('id') id: string): Promise<void> {
-    await this.productsService.removeProduct(id);
-    return null;
-  }
+  // @Delete(':id')
+  // async removeProduct(@Param('id') id: string): Promise<void> {
+  //   await this.productsService.removeProduct(id);
+  //   return null;
+  // }
 }
