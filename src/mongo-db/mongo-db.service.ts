@@ -1,5 +1,5 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
-import { Document, Model } from 'mongoose';
+import { Document, Model, FilterQuery } from 'mongoose';
 
 /**
  * Abstract base service that other services can extend to provide base CRUD
@@ -7,7 +7,7 @@ import { Document, Model } from 'mongoose';
  */
 @Injectable()
 export abstract class MongoDbService<T extends Document> {
-  private readonly modelName: string;
+  protected readonly modelName: string;
 
   /**
    * The constructor must receive the injected model from the child service in
@@ -29,13 +29,11 @@ export abstract class MongoDbService<T extends Document> {
    *
    * @throws InternalServerErrorException
    */
-  async insertOne(newEntry: object) {
+  async create(conditions: Partial<Record<keyof T, unknown>>): Promise<T> {
     try {
-      return await this.model.create(newEntry);
+      return await this.model.create(conditions as FilterQuery<T>);
     } catch (err) {
-      throw new InternalServerErrorException(
-        `mongo-db.service - Error while creating new database entry: ${err.message}`,
-      );
+      throw new InternalServerErrorException(err.message);
     }
   }
 }

@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
+import { Product } from './product-old.model';
 import { ProductsService } from './products-old.service';
 
 @Controller('products')
@@ -19,12 +20,14 @@ export class ProductsController {
     @Body('description') description: string,
     @Body('price') price: number,
   ) {
-    const user = await this.productsService.insertOne({
+    const newProduct: Partial<Product> = {
       title,
       description,
       price,
-    });
-    return { user };
+    };
+
+    const product = await this.productsService.create(newProduct);
+    return { product };
   }
 
   // @Get()
